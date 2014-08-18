@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Open511DotNet", "Open511DotNet.csproj", "{0E70D999-0B58-4245-8B90-3BD9FC9B31EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "511Tests", "..\511Tests\511Tests.csproj", "{6669E659-1B3F-48A8-ABC2-BA133513037E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Open511WebApiDemo", "..\Open511WebApiDemo\Open511WebApiDemo.csproj", "{6AE9FCF3-28CF-429F-B000-F8F934B0CD14}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0E70D999-0B58-4245-8B90-3BD9FC9B31EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E70D999-0B58-4245-8B90-3BD9FC9B31EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E70D999-0B58-4245-8B90-3BD9FC9B31EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E70D999-0B58-4245-8B90-3BD9FC9B31EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6669E659-1B3F-48A8-ABC2-BA133513037E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6669E659-1B3F-48A8-ABC2-BA133513037E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6669E659-1B3F-48A8-ABC2-BA133513037E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6669E659-1B3F-48A8-ABC2-BA133513037E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AE9FCF3-28CF-429F-B000-F8F934B0CD14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AE9FCF3-28CF-429F-B000-F8F934B0CD14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AE9FCF3-28CF-429F-B000-F8F934B0CD14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AE9FCF3-28CF-429F-B000-F8F934B0CD14}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
