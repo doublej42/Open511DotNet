@@ -18,8 +18,7 @@ namespace _511Tests
         [TestMethod]
         public void Root()
         {
-            var root = new Root();
-            root.Jurisdictions = new List<JurisdictionRoot>();
+            var root = new Root {Jurisdictions = new List<JurisdictionRoot>(), Services = new List<Service>()};
             var jurisdictionRoot = new JurisdictionRoot
             {
                 Id = "nanaimo.ca",
@@ -34,11 +33,11 @@ namespace _511Tests
                 Url = new Link("http://mycounty.gov/open511/jurisdiction/mycounty.gov/")
             };
             root.Jurisdictions.Add(jurisdictionRoot);
-            root.Services = new List<Service>();
             var service = new Service {ServiceTypeUrl = ServiceType.Events, Url = new Link("/events/")};
             root.Services.Add(service);
             service = new Service { ServiceTypeUrl = ServiceType.Areas, Url = new Link("/areas/") };
             root.Services.Add(service);
+
             var testString = root.SerializeXml();
             Assert.IsFalse(string.IsNullOrEmpty(testString));
             

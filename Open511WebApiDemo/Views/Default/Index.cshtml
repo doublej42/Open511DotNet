@@ -1,0 +1,40 @@
+﻿@model dynamic
+@{
+    Layout = null;
+}
+<!doctype html>
+<html>
+<head>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+
+    <form action="/" method="Get">
+        <p>Url:<input type="text" value="" id="url"></p>
+        <p>
+            DataType:<select id="datatype">
+                <option value="xml">xml</option>
+                <option value="json">json</option>
+            </select>
+        </p>
+        <p>
+            <textarea style="width: 100%; height: 800px;" id="target"></textarea>
+        </p>
+        <p><button type="button" onclick="fetch()">fetch</button></p>
+    </form>
+
+    <script>
+function fetch()
+{
+
+	$.ajax($('#url').val(),{
+	dataType: $('#datatype').val()
+	}).done(function(data, textStatus, jqXHR){
+	    $('#target').val(jqXHR.responseText);
+	    console.log(data);
+	});
+
+}
+    </script>
+</body>
+</html>

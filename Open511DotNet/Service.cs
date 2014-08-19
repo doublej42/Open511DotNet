@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace Open511DotNet
 {
@@ -17,11 +18,13 @@ namespace Open511DotNet
         public static Link TrafficSegments = new Link("http://open511.org/services/traffic_segments/", "service_type");
     }
 
+
     public class Service
     {
         private List<Link> _links;
 
         [XmlIgnore]
+        [JsonProperty("service_type_url")]
         public Link ServiceTypeUrl
         {
             get { return Links.FirstOrDefault(l => l.Rel == "service_type"); }
@@ -35,6 +38,7 @@ namespace Open511DotNet
         }
 
         [XmlIgnore]
+        [JsonProperty("url")]
         public Link Url
         {
             get { return Links.FirstOrDefault(l => l.Rel == "self"); }
@@ -48,6 +52,7 @@ namespace Open511DotNet
         }
 
         [XmlElement("link")]
+        [JsonIgnore]
         public List<Link> Links
         {
             get { return _links ?? (_links = new List<Link>()); }
@@ -56,6 +61,7 @@ namespace Open511DotNet
 
         [XmlArray("supported_versions")]
         [XmlArrayItem("supported_version")]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "supportedVersions")]
         public List<SupportedVersion> SupportedVersions { get; set; }
     }
 }
