@@ -28,7 +28,7 @@ namespace Open511DotNet
         }
     }
 
-    [XmlRoot("open511")]
+    [XmlRoot("open511")] // not actually inherited. 
     public abstract class Open511Base
     {
         private string _lang;

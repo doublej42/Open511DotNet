@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace Open511DotNet
 {
-    //[XmlRoot("open511")]
+    [XmlRoot("open511")]
     public class Root : Open511Base
     {
         //[XmlElement("jurisdictions")]

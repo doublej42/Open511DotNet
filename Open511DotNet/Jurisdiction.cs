@@ -105,6 +105,7 @@ namespace Open511DotNet
         }
     }
 
+    [XmlRoot("open511")]
     public class JurisdictionsBase : Open511Base
     {
         private List<Jurisdiction> _jurisdictions;

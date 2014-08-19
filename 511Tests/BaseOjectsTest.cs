@@ -29,7 +29,7 @@ namespace _511Tests
             {
                 Id = "nanaimo.ca",
                 Name = "City of Nanaimo",
-                Url = new Link("/api/jurisdictions/nanaimo.ca/")
+                Url = new Link("/api/jurisdiction/nanaimo.ca/")
             };
             GRoot.Jurisdictions.Add(jurisdictionRoot);
             jurisdictionRoot = new JurisdictionRoot
@@ -58,20 +58,22 @@ namespace _511Tests
 
             //jurisdiction
             GJurisdictions = new JurisdictionsBase();
-            var jurisdiction = new Jurisdiction()
+            var jurisdiction = new Jurisdiction
             {
                 Id = "nanaimo.ca",
                 Name = "City of Nanaimo",
-                Url = new Link("/api/jurisdictions/nanaimo.ca/")
+                Url = new Link("/api/jurisdiction/nanaimo.ca/"),
+                Description = "Official road data (construction) for The City of Nanaimo",
+                DescriptionUrl = new Link("http://www.nanaimo.ca/"),
+                Geography = new Link("/api/geography/nanaimo.ca/"),
+                Phone = "250-755-4562",
+                License =
+                    new Link(
+                        "http://http://www.nanaimo.ca/EN/main/departments/information-technology/DataCatalogue/Licence.html"),
+                TimeZone = TimeZoneInfo.Local.Id,
+                Email = "jeff.jacob@nanaimo.ca"
             };
-            jurisdiction.Description = "Official road data (construction) for The City of Nanaimo";
-            jurisdiction.DescriptionUrl = new Link("http://www.nanaimo.ca/");
-            jurisdiction.Geography = new Link("/api/geography/nanaimo.ca/");
             jurisdiction.Languages.Add("en");
-            jurisdiction.Phone = "250-755-4562";
-            jurisdiction.License = new Link("http://http://www.nanaimo.ca/EN/main/departments/information-technology/DataCatalogue/Licence.html");
-            jurisdiction.TimeZone = TimeZoneInfo.Local.Id;
-            jurisdiction.Email = "jeff.jacob@nanaimo.ca";
             GJurisdictions.Jurisdictions.Add(jurisdiction);
         }
         
