@@ -8,18 +8,10 @@ using Newtonsoft.Json;
 
 namespace Open511DotNet
 {
-    public static class ServiceType
-    {
-        public static Link Events = new Link("http://open511.org/services/events/", "service_type");
-        public static Link EventsStatic = new Link("http://open511.org/services/events-static", "service_type");
-        public static Link Areas = new Link("http://open511.org/services/areas/", "service_type");
-        public static Link Cameras = new Link("http://open511.org/services/cameras/", "service_type");
-        public static Link Roads = new Link("http://open511.org/services/roads/", "service_type");
-        public static Link TrafficSegments = new Link("http://open511.org/services/traffic_segments/", "service_type");
-    }
+    
 
 
-    public class Service
+    public class Service: LinkHolder
     {
         private List<Link> _links;
 
@@ -27,13 +19,10 @@ namespace Open511DotNet
         [JsonProperty("service_type_url")]
         public Link ServiceTypeUrl
         {
-            get { return Links.FirstOrDefault(l => l.Rel == "service_type"); }
+            get { return GetLink("service_type"); }
             set
             {
-                var tempLink = value;
-                tempLink.Rel = "service_type";
-                Links.RemoveAll(l => l.Rel == tempLink.Rel); // prevent duplicate rel
-                Links.Add(tempLink);
+                SetLink("service_type", value.Url);
             }
         }
 
@@ -41,22 +30,11 @@ namespace Open511DotNet
         [JsonProperty("url")]
         public Link Url
         {
-            get { return Links.FirstOrDefault(l => l.Rel == "self"); }
+            get { return GetLink("self"); }
             set
             {
-                var tempLink = value;
-                tempLink.Rel = "self";
-                Links.RemoveAll(l => l.Rel == tempLink.Rel); // prevent duplicate rel
-                Links.Add(tempLink);
+                SetLink("self", value.Url);
             }
-        }
-
-        [XmlElement("link")]
-        [JsonIgnore]
-        public List<Link> Links
-        {
-            get { return _links ?? (_links = new List<Link>()); }
-            set { _links = value; }
         }
 
         [XmlArray("supported_versions")]

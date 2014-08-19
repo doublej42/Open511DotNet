@@ -8,6 +8,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 using Open511DotNet;
 
 namespace _511Tests
@@ -15,30 +16,69 @@ namespace _511Tests
     [TestClass]
     public class BaseOjectsTest
     {
-        [TestMethod]
-        public void Root()
+
+        protected Root GRoot; // I am Groot
+
+        protected JurisdictionsBase GJurisdictions;
+
+
+        public BaseOjectsTest()
         {
-            var root = new Root {Jurisdictions = new List<JurisdictionRoot>(), Services = new List<Service>()};
+            GRoot = new Root { Jurisdictions = new List<JurisdictionRoot>(), Services = new List<Service>() };
             var jurisdictionRoot = new JurisdictionRoot
             {
                 Id = "nanaimo.ca",
                 Name = "City of Nanaimo",
-                Url = new Link("http://www.nanaimo.ca/")
+                Url = new Link("/api/jurisdictions/nanaimo.ca/")
             };
-            root.Jurisdictions.Add(jurisdictionRoot);
+            GRoot.Jurisdictions.Add(jurisdictionRoot);
             jurisdictionRoot = new JurisdictionRoot
             {
                 Id = "mycounty.gov",
                 Name = "My County",
                 Url = new Link("http://mycounty.gov/open511/jurisdiction/mycounty.gov/")
             };
-            root.Jurisdictions.Add(jurisdictionRoot);
-            var service = new Service {ServiceTypeUrl = ServiceType.Events, Url = new Link("/events/")};
-            root.Services.Add(service);
-            service = new Service { ServiceTypeUrl = ServiceType.Areas, Url = new Link("/areas/") };
-            root.Services.Add(service);
+            GRoot.Jurisdictions.Add(jurisdictionRoot);
+            var service = new Service
+            {
+                ServiceTypeUrl = ServiceType.Events,
+                Url = new Link("/events/"),
+                SupportedVersions = new List<SupportedVersion> {new SupportedVersion {SupportedversionID = "v0"}}
+            };
+            GRoot.Services.Add(service);
+            service = new Service
+            {
+                ServiceTypeUrl = ServiceType.Areas,
+                Url = new Link("/areas/"),
+                SupportedVersions = new List<SupportedVersion> { new SupportedVersion { SupportedversionID = "v0" } }
+            };
+            GRoot.Services.Add(service);
 
-            var testString = root.SerializeXml();
+
+
+            //jurisdiction
+            GJurisdictions = new JurisdictionsBase();
+            var jurisdiction = new Jurisdiction()
+            {
+                Id = "nanaimo.ca",
+                Name = "City of Nanaimo",
+                Url = new Link("/api/jurisdictions/nanaimo.ca/")
+            };
+            jurisdiction.Description = "Official road data (construction) for The City of Nanaimo";
+            jurisdiction.DescriptionUrl = new Link("http://www.nanaimo.ca/");
+            jurisdiction.Geography = new Link("/api/geography/nanaimo.ca/");
+            jurisdiction.Languages.Add("en");
+            jurisdiction.Phone = "250-755-4562";
+            jurisdiction.License = new Link("http://http://www.nanaimo.ca/EN/main/departments/information-technology/DataCatalogue/Licence.html");
+            jurisdiction.TimeZone = TimeZoneInfo.Local.Id;
+            jurisdiction.Email = "jeff.jacob@nanaimo.ca";
+            GJurisdictions.Jurisdictions.Add(jurisdiction);
+        }
+        
+        [TestMethod]
+        public void Root()
+        {
+            var testString = GRoot.SerializeXml();
             Assert.IsFalse(string.IsNullOrEmpty(testString));
             
             var serializer = new XmlSerializer(typeof(Root));
@@ -47,12 +87,58 @@ namespace _511Tests
             var stream = new MemoryStream(byteArray);
 
             var newRoot = (Root) serializer.Deserialize(stream);
-            Assert.IsTrue(newRoot.Jurisdictions.Count == root.Jurisdictions.Count);
-            foreach (var item in root.Services)
+            Assert.IsTrue(newRoot.Jurisdictions.Count == GRoot.Jurisdictions.Count);
+            foreach (var item in GRoot.Services)
             {
                 Assert.IsTrue(newRoot.Services.Any(i => i.ServiceTypeUrl.Url == item.ServiceTypeUrl.Url));
                 Assert.IsTrue(newRoot.Services.Any(i => i.Url.Url == item.Url.Url));
             }
+        }
+
+
+        [TestMethod]
+        public void RootJsonTest()
+        {
+            var jsonText = JsonConvert.SerializeObject(GRoot);
+            var newRoot = JsonConvert.DeserializeObject<Root>(jsonText);
+            var json2NdText = JsonConvert.SerializeObject(newRoot);
+            Assert.AreEqual(GRoot.Services.Count, newRoot.Services.Count);
+            Assert.AreEqual(jsonText, json2NdText);
+        }
+
+        [TestMethod]
+        public void RootXmlTest()
+        {
+            var xmlText = GRoot.SerializeXml();
+            var serializer = new XmlSerializer(typeof(Root));
+            byte[] byteArray = Encoding.ASCII.GetBytes(xmlText);
+            var stream = new MemoryStream(byteArray);
+            var newRoot = (Root) serializer.Deserialize(stream);
+            var xml2NdText = newRoot.SerializeXml();
+            Assert.AreEqual(GRoot.Services.Count, newRoot.Services.Count);
+            Assert.AreEqual(xmlText, xml2NdText);
+        }
+
+
+        [TestMethod]
+        public void JurisdictionJsonTest()
+        {
+            var jsonText = JsonConvert.SerializeObject(GJurisdictions);
+            var newJur = JsonConvert.DeserializeObject<JurisdictionsBase>(jsonText);
+            var json2NdText = JsonConvert.SerializeObject(newJur);
+            Assert.AreEqual(jsonText, json2NdText);
+        }
+
+        [TestMethod]
+        public void JurisdictionXmlTest()
+        {
+            var xmlText = GJurisdictions.SerializeXml();
+            var serializer = new XmlSerializer(typeof(JurisdictionsBase));
+            byte[] byteArray = Encoding.ASCII.GetBytes(xmlText);
+            var stream = new MemoryStream(byteArray);
+            var newRoot = (JurisdictionsBase)serializer.Deserialize(stream);
+            var xml2NdText = newRoot.SerializeXml();
+            Assert.AreEqual(xmlText, xml2NdText);
         }
     }
 }

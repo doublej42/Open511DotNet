@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums.cs" />
     <Compile Include="Jurisdiction.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="Open511.cs" />

@@ -29,6 +29,40 @@ namespace Open511DotNet
         
         [XmlAttribute("href")]
         public string Url { get; set; }
+
+    }
+
+
+    public abstract class LinkHolder
+    {
+        private List<Link> _links;
+
+        [XmlElement("link")]
+        [JsonIgnore]
+        public List<Link> Links
+        {
+            get { return _links ?? (_links = new List<Link>()); }
+            set { _links = value; }
+        }
+
+        protected void SetLink(string rel, string url)
+        {
+            var tempLink = new Link { Url = url, Rel = rel };
+            Links.RemoveAll(l => l.Rel == tempLink.Rel); // prevent duplicate rel
+            Links.Add(tempLink);
+        }
+
+        protected void SetLink(Link link)
+        {
+            Links.RemoveAll(l => l.Rel == link.Rel); // prevent duplicate rel
+            Links.Add(link);
+        }
+
+        protected Link GetLink(string rel)
+        {
+            return Links.FirstOrDefault(l => l.Rel == rel);
+        }
+
     }
 
     public class LinkSerializer: JsonConverter
@@ -48,7 +82,10 @@ namespace Open511DotNet
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            var link = new Link();
+            link.Url = reader.Value.ToString();
+            return link;
+
         }
 
         public override bool CanConvert(Type objectType)
