@@ -71,14 +71,15 @@ namespace _511Tests
                     new Link(
                         "http://http://www.nanaimo.ca/EN/main/departments/information-technology/DataCatalogue/Licence.html"),
                 TimeZone = TimeZoneInfo.Local.Id,
-                Email = "jeff.jacob@nanaimo.ca"
+                Email = "jeff.jacob@nanaimo.ca",
+                DistanceUnit = DistanceUnit.Kilometres,
+                Languages = new List<string> {"en"}
             };
-            jurisdiction.Languages.Add("en");
             GJurisdictions.Jurisdictions.Add(jurisdiction);
         }
         
         [TestMethod]
-        public void Root()
+        public void RootbaseTests()
         {
             var testString = GRoot.SerializeXml();
             Assert.IsFalse(string.IsNullOrEmpty(testString));
@@ -129,6 +130,7 @@ namespace _511Tests
             var newJur = JsonConvert.DeserializeObject<JurisdictionsBase>(jsonText);
             var json2NdText = JsonConvert.SerializeObject(newJur);
             Assert.AreEqual(jsonText, json2NdText);
+            Assert.AreEqual(GJurisdictions.Jurisdictions.First().DistanceUnit.ToString(), newJur.Jurisdictions.First().DistanceUnit.ToString());
         }
 
         [TestMethod]
@@ -138,9 +140,64 @@ namespace _511Tests
             var serializer = new XmlSerializer(typeof(JurisdictionsBase));
             byte[] byteArray = Encoding.ASCII.GetBytes(xmlText);
             var stream = new MemoryStream(byteArray);
-            var newRoot = (JurisdictionsBase)serializer.Deserialize(stream);
-            var xml2NdText = newRoot.SerializeXml();
+            var newJur = (JurisdictionsBase)serializer.Deserialize(stream);
+            Assert.IsTrue(newJur.Jurisdictions[0].DistanceUnit.ToString() == GJurisdictions.Jurisdictions[0].DistanceUnit.ToString());
+            var xml2NdText = newJur.SerializeXml();
             Assert.AreEqual(xmlText, xml2NdText);
+            Assert.AreEqual(GJurisdictions.Jurisdictions.First().DistanceUnit.ToString(), newJur.Jurisdictions.First().DistanceUnit.ToString());
         }
+
+
+        //[TestMethod]
+        //public void TestnXmlTest()
+        //{
+        //   //
+            
+        //    var t1 = new JurisdictionsBase();
+        //    t1.Jurisdictions = new List<Jurisdiction>();
+        //    var t2 = new Jurisdiction();
+        //    t2.Languages = new List<string>();
+        //    t2.Languages.Add("test1");
+        //    t2.Languages.Add("test2");
+        //    t1.Jurisdictions.Add(t2);
+
+
+        //    //
+
+        //    //jurisdiction
+        //    var Jurisdictions = new JurisdictionsBase();
+        //    Jurisdictions.Jurisdictions = new List<Jurisdiction>();
+        //    var jurisdiction = new Jurisdiction
+        //    {
+        //        Id = "nanaimo.ca",
+        //        Name = "City of Nanaimo",
+        //        Url = new Link("/api/jurisdiction/nanaimo.ca/"),
+        //        Description = "Official road data (construction) for The City of Nanaimo",
+        //        DescriptionUrl = new Link("http://www.nanaimo.ca/"),
+        //        Geography = new Link("/api/geography/nanaimo.ca/"),
+        //        Phone = "250-755-4562",
+        //        License =
+        //            new Link(
+        //                "http://http://www.nanaimo.ca/EN/main/departments/information-technology/DataCatalogue/Licence.html"),
+        //        TimeZone = TimeZoneInfo.Local.Id,
+        //        Email = "jeff.jacob@nanaimo.ca"
+        //    };
+        //    jurisdiction.DistanceUnit = DistanceUnit.Kilometres;
+        //    jurisdiction.Languages = new List<string>();
+        //    jurisdiction.Languages.Add("en");
+        //    Jurisdictions.Jurisdictions.Add(jurisdiction);
+
+
+        //    //var xmlText = t1.SerializeXml();
+            
+        //    var xmlText = Jurisdictions.SerializeXml();
+        //    var serializer = new XmlSerializer(typeof(JurisdictionsBase));
+        //    byte[] byteArray = Encoding.ASCII.GetBytes(xmlText);
+        //    var stream = new MemoryStream(byteArray);
+        //    var newT1 = (JurisdictionsBase)serializer.Deserialize(stream);
+        //    var xml2NdText = newT1.SerializeXml();
+        //    Assert.AreEqual(xmlText, xml2NdText);
+        //    //Assert.AreEqual(GJurisdictions.Jurisdictions.First().DistanceUnit.ToString(), newT1.Jurisdictions.First().DistanceUnit.ToString());
+        //}
     }
 }

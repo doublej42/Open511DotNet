@@ -30,18 +30,18 @@ namespace Open511DotNet
                 SetLink("self", value.Url);
             }
         }
-
-
-        
     }
 
     public class Jurisdiction : JurisdictionRoot
     {
-        private List<string> _languages;
+        private DistanceUnit _distanceUnit;
 
-        [XmlElement("email")]
-        [JsonProperty("email")]
-        public string Email { get; set; }
+        public Jurisdiction()
+        {
+            Languages = new List<string>();
+        }
+
+        
 
         [XmlIgnore]
         [JsonProperty("description_url")]
@@ -80,8 +80,13 @@ namespace Open511DotNet
         //public TimeZoneInfo TimeZone { get; set; }
         public string TimeZone { get; set; }
 
-        public DistanceUnit DistanceUnit { get; set; }
-
+        [XmlElement("distance_unit")]
+        [JsonProperty("distance_unit")]
+        public DistanceUnit DistanceUnit
+        {
+            get { return _distanceUnit; }
+            set { _distanceUnit = value; }
+        }
 
 
         [XmlIgnore]
@@ -95,14 +100,17 @@ namespace Open511DotNet
             }
         }
 
+        [XmlElement("email")]
+        [JsonProperty("email")]
+        public string Email { get; set; }
+
         [XmlArray("languages")]
-        [XmlArrayItem("language")]
+        [XmlArrayItem("language",DataType = "string")]
         [JsonProperty("languages")]
-        public List<string> Languages
-        {
-            get { return _languages ?? (_languages = new List<string>()); }
-            set { _languages = value; }
-        }
+        public List<string> Languages { get; set; }
+
+
+    
     }
 
     [XmlRoot("open511")]
@@ -112,7 +120,7 @@ namespace Open511DotNet
 
         [XmlArray("jurisdictions")]
         [XmlArrayItem("jurisdiction")]
-        [JsonProperty("jurisdiction")]
+        [JsonProperty("jurisdictions")]
         public List<Jurisdiction> Jurisdictions
         {
             get { return _jurisdictions ?? (_jurisdictions = new List<Jurisdiction>()); }

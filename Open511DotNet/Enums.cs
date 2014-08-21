@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace Open511DotNet
 {
@@ -16,12 +18,13 @@ namespace Open511DotNet
         public static Link TrafficSegments = new Link("http://open511.org/services/traffic_segments/", "service_type");
     }
 
-    public sealed class DistanceUnit
+    [Serializable]
+    [JsonConverter(typeof(DistanceUnitSerializer))]
+    public sealed class DistanceUnit : IXmlSerializable
     {
 
-        private readonly string _unit;
 
-
+        private string _unit;
 
         public DistanceUnit()
         {
@@ -42,5 +45,45 @@ namespace Open511DotNet
 
         public static readonly DistanceUnit Miles = new DistanceUnit("MILES");
 
+
+        public System.Xml.Schema.XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(System.Xml.XmlReader reader)
+        {
+           _unit = reader.ReadElementContentAsString();
+        }
+
+        public void WriteXml(System.Xml.XmlWriter writer)
+        {
+            writer.WriteString(_unit);
+        }
+    }
+
+    public class DistanceUnitSerializer : JsonConverter
+    {
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            var distanceUnit = value as DistanceUnit;
+
+            if (distanceUnit != null)
+            {
+                serializer.Serialize(writer, distanceUnit.ToString());
+            }
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            var distanceUnit = new DistanceUnit(reader.Value.ToString());
+            return distanceUnit;
+
+        }
+
+        public override bool CanConvert(Type objectType)
+        {
+            return objectType == typeof(DistanceUnit);
+        }
     }
 }

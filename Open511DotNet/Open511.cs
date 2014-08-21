@@ -15,9 +15,7 @@ namespace Open511DotNet
     {
         public static string Serialize(object obj)
         {
-            var xws = new XmlWriterSettings();
-            xws.OmitXmlDeclaration = true;
-            xws.Encoding = Encoding.UTF8; // This is probably the default
+            var xws = new XmlWriterSettings { OmitXmlDeclaration = true, CloseOutput = false, CheckCharacters = false };
             var x = new XmlSerializer(obj.GetType());
             var sww = new StringWriter();
             var writer = XmlWriter.Create(sww, xws);

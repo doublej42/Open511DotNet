@@ -6,4 +6,10 @@
     </extensions>
     <highlightIndex>2</highlightIndex>
   </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>jurisdiction.cs</string>
+    </extensions>
+    <highlightIndex>4</highlightIndex>
+  </TabHighlightState>
 </ArrayOfTabHighlightState>

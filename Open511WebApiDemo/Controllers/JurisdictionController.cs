@@ -46,6 +46,8 @@ namespace Open511WebApiDemo.App_Start
         /// <returns></returns>
         public JurisdictionsBase Get(string id)
         {
+           // GlobalConfiguration.Configuration.Formatters.XmlFormatter.UseXmlSerializer = true;
+            
             //jurisdiction
             var jurisdictions = new JurisdictionsBase();
             var jurisdiction = new Jurisdiction
@@ -59,9 +61,10 @@ namespace Open511WebApiDemo.App_Start
                 Phone = "250-755-4562",
                 License =
                     new Link(
-                        "http://http://www.nanaimo.ca/EN/main/departments/information-technology/DataCatalogue/Licence.html"),
+                        "http://www.nanaimo.ca/EN/main/departments/information-technology/DataCatalogue/Licence.html"),
                 TimeZone = TimeZoneInfo.Local.Id,
-                Email = "jeff.jacob@nanaimo.ca"
+                Email = "jeff.jacob@nanaimo.ca",
+                DistanceUnit = DistanceUnit.Kilometres
             };
             jurisdiction.Languages.Add("en");
             jurisdictions.Jurisdictions.Add(jurisdiction);

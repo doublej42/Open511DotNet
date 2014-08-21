@@ -13,11 +13,12 @@ namespace Open511DotNet
         //[XmlElement("jurisdictions")]
         [XmlArray("jurisdictions")]
         [XmlArrayItem("jurisdiction")]
-        [JsonProperty("jurisdiction")]
+        [JsonProperty("jurisdictions")]
         public List<JurisdictionRoot> Jurisdictions { get; set; }
 
         [XmlArray("services")]
         [XmlArrayItem("service")]
+        [JsonProperty("services")]
         public List<Service> Services { get; set; }
 
      
