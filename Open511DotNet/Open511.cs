@@ -21,6 +21,7 @@ namespace Open511DotNet
             var writer = XmlWriter.Create(sww, xws);
             var ns = new XmlSerializerNamespaces();
             ns.Add("", "");
+            ns.Add("gml", "http://www.opengis.net/gml");
             x.Serialize(writer, obj, ns);
             return sww.ToString();
         }

@@ -44,6 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums.cs" />
+    <Compile Include="GeographiesBase.cs" />
+    <Compile Include="Geography.cs" />
+    <Compile Include="GMLBase.cs" />
+    <Compile Include="GMLPoint.cs" />
+    <Compile Include="GMLPos.cs" />
     <Compile Include="Jurisdiction.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="Open511.cs" />

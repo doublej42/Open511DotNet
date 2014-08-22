@@ -12,4 +12,22 @@
     </extensions>
     <highlightIndex>4</highlightIndex>
   </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>GMLPoint.cs</string>
+    </extensions>
+    <highlightIndex>2</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>*..\Open511WebApiDemo\Open511WebApiDemo.csproj*Controllers\GeographyController.cs</string>
+    </extensions>
+    <highlightIndex>4</highlightIndex>
+  </TabHighlightState>
+  <TabHighlightState>
+    <extensions>
+      <string>Geography.cs</string>
+    </extensions>
+    <highlightIndex>4</highlightIndex>
+  </TabHighlightState>
 </ArrayOfTabHighlightState>

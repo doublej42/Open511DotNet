@@ -13,7 +13,6 @@ namespace Open511DotNet
 
     public class Service: LinkHolder
     {
-        private List<Link> _links;
 
         [XmlIgnore]
         [JsonProperty("service_type_url")]

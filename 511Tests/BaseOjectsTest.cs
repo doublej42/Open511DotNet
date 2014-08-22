@@ -21,7 +21,7 @@ namespace _511Tests
 
         protected JurisdictionsBase GJurisdictions;
 
-
+        protected GeographiesBase GeographiesBase;
         public BaseOjectsTest()
         {
             GRoot = new Root { Jurisdictions = new List<JurisdictionRoot>(), Services = new List<Service>() };
@@ -76,6 +76,18 @@ namespace _511Tests
                 Languages = new List<string> {"en"}
             };
             GJurisdictions.Jurisdictions.Add(jurisdiction);
+
+
+
+
+            //GeographiesBase
+
+            GeographiesBase = new GeographiesBase {Geographies = new List<Geography>()};
+            var geography = new Geography {Point = new GmlPoint()};
+            geography.Point.Pos.Latitude = 49.1500;
+            geography.Point.Pos.Longitude = -123.9167;
+            GeographiesBase.Geographies.Add(geography);
+
         }
         
         [TestMethod]
@@ -147,57 +159,17 @@ namespace _511Tests
             Assert.AreEqual(GJurisdictions.Jurisdictions.First().DistanceUnit.ToString(), newJur.Jurisdictions.First().DistanceUnit.ToString());
         }
 
-
-        //[TestMethod]
-        //public void TestnXmlTest()
-        //{
-        //   //
-            
-        //    var t1 = new JurisdictionsBase();
-        //    t1.Jurisdictions = new List<Jurisdiction>();
-        //    var t2 = new Jurisdiction();
-        //    t2.Languages = new List<string>();
-        //    t2.Languages.Add("test1");
-        //    t2.Languages.Add("test2");
-        //    t1.Jurisdictions.Add(t2);
-
-
-        //    //
-
-        //    //jurisdiction
-        //    var Jurisdictions = new JurisdictionsBase();
-        //    Jurisdictions.Jurisdictions = new List<Jurisdiction>();
-        //    var jurisdiction = new Jurisdiction
-        //    {
-        //        Id = "nanaimo.ca",
-        //        Name = "City of Nanaimo",
-        //        Url = new Link("/api/jurisdiction/nanaimo.ca/"),
-        //        Description = "Official road data (construction) for The City of Nanaimo",
-        //        DescriptionUrl = new Link("http://www.nanaimo.ca/"),
-        //        Geography = new Link("/api/geography/nanaimo.ca/"),
-        //        Phone = "250-755-4562",
-        //        License =
-        //            new Link(
-        //                "http://http://www.nanaimo.ca/EN/main/departments/information-technology/DataCatalogue/Licence.html"),
-        //        TimeZone = TimeZoneInfo.Local.Id,
-        //        Email = "jeff.jacob@nanaimo.ca"
-        //    };
-        //    jurisdiction.DistanceUnit = DistanceUnit.Kilometres;
-        //    jurisdiction.Languages = new List<string>();
-        //    jurisdiction.Languages.Add("en");
-        //    Jurisdictions.Jurisdictions.Add(jurisdiction);
-
-
-        //    //var xmlText = t1.SerializeXml();
-            
-        //    var xmlText = Jurisdictions.SerializeXml();
-        //    var serializer = new XmlSerializer(typeof(JurisdictionsBase));
-        //    byte[] byteArray = Encoding.ASCII.GetBytes(xmlText);
-        //    var stream = new MemoryStream(byteArray);
-        //    var newT1 = (JurisdictionsBase)serializer.Deserialize(stream);
-        //    var xml2NdText = newT1.SerializeXml();
-        //    Assert.AreEqual(xmlText, xml2NdText);
-        //    //Assert.AreEqual(GJurisdictions.Jurisdictions.First().DistanceUnit.ToString(), newT1.Jurisdictions.First().DistanceUnit.ToString());
-        //}
+        [TestMethod]
+        public void GeographiesBaseXmlText()
+        {
+            var xmlText = GeographiesBase.SerializeXml();
+            var serializer = new XmlSerializer(typeof(GeographiesBase));
+            byte[] byteArray = Encoding.ASCII.GetBytes(xmlText);
+            var stream = new MemoryStream(byteArray);
+            var newObject = (GeographiesBase)serializer.Deserialize(stream);
+            var xml2NdText = newObject.SerializeXml();
+            Assert.AreEqual(xmlText, xml2NdText);
+        }
+       
     }
 }
