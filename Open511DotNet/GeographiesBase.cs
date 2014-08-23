@@ -17,11 +17,13 @@ namespace Open511DotNet
         public List<Geography> Geographies { get; set; }
 
         [XmlNamespaceDeclarations]
+        [JsonIgnore]
         public XmlSerializerNamespaces Namespaces = new XmlSerializerNamespaces();
 
         public GeographiesBase() 
         {
             Namespaces.Add("gml", "http://www.opengis.net/gml");
+            Geographies = new List<Geography>();
         }
     }
 }

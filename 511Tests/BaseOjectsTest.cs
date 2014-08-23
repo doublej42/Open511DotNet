@@ -80,14 +80,7 @@ namespace _511Tests
 
 
 
-            //GeographiesBase
-
-            GeographiesBase = new GeographiesBase {Geographies = new List<Geography>()};
-            var geography = new Geography {Point = new GmlPoint()};
-            geography.Point.Pos.Latitude = 49.1500;
-            geography.Point.Pos.Longitude = -123.9167;
-            GeographiesBase.Geographies.Add(geography);
-
+         
         }
         
         [TestMethod]
@@ -159,17 +152,6 @@ namespace _511Tests
             Assert.AreEqual(GJurisdictions.Jurisdictions.First().DistanceUnit.ToString(), newJur.Jurisdictions.First().DistanceUnit.ToString());
         }
 
-        [TestMethod]
-        public void GeographiesBaseXmlText()
-        {
-            var xmlText = GeographiesBase.SerializeXml();
-            var serializer = new XmlSerializer(typeof(GeographiesBase));
-            byte[] byteArray = Encoding.ASCII.GetBytes(xmlText);
-            var stream = new MemoryStream(byteArray);
-            var newObject = (GeographiesBase)serializer.Deserialize(stream);
-            var xml2NdText = newObject.SerializeXml();
-            Assert.AreEqual(xmlText, xml2NdText);
-        }
        
     }
 }
