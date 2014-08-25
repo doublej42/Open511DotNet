@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="BaseOjectsTest.cs" />
     <Compile Include="jurisdictiongeo.cs" />
+    <Compile Include="JurisdictionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
