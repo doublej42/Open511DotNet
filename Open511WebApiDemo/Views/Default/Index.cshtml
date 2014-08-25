@@ -5,6 +5,7 @@
 <!doctype html>
 <html>
 <head>
+    <title>Api Tester</title>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 <body>
@@ -32,7 +33,10 @@ function fetch()
 	}).done(function(data, textStatus, jqXHR){
 	    $('#target').val(jqXHR.responseText);
 	    console.log(data);
-	});
+	}).fail(function(jqXHR, textStatus, errorThrown) {
+	    alert(textStatus);
+	    alert(errorThrown);
+	});;
 
 }
     </script>

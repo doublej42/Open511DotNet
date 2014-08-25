@@ -45,9 +45,7 @@ namespace Open511WebApiDemo.App_Start
         /// <param name="id"></param>
         /// <returns></returns>
         public JurisdictionsBase Get(string id)
-        {
-           // GlobalConfiguration.Configuration.Formatters.XmlFormatter.UseXmlSerializer = true;
-            
+        {            
             //jurisdiction
             var jurisdictions = new JurisdictionsBase();
             var jurisdiction = new Jurisdiction

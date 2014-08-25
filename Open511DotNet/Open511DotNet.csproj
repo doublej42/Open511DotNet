@@ -44,6 +44,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums.cs" />
+    <Compile Include="GeographiesBase.cs" />
+    <Compile Include="Geography.cs" />
+    <Compile Include="GmlBase.cs" />
+    <Compile Include="GmlLinearRing.cs" />
+    <Compile Include="GmlPoint.cs" />
+    <Compile Include="GmlPos.cs" />
+    <Compile Include="GmlPosList.cs" />
+    <Compile Include="GmlRing.cs" />
+    <Compile Include="JsonSerializeChildren.cs" />
     <Compile Include="Jurisdiction.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="Open511.cs" />
@@ -53,6 +62,7 @@
     <Compile Include="SupportedVersion.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GmlPolygon.cs" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

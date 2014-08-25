@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web.Http;
+using System.Xml;
+using System.Xml.Serialization;
+using Open511DotNet;
 
 namespace Open511WebApiDemo
 {
@@ -21,6 +25,9 @@ namespace Open511WebApiDemo
             );
 
             config.Formatters.XmlFormatter.UseXmlSerializer = true;
+
+            var xmlSerializer = new XmlSerializer(typeof(GeographiesBase));
+            config.Formatters.XmlFormatter.SetSerializer<GeographiesBase>(xmlSerializer);
         }
     }
 }
