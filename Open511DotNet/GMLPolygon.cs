@@ -31,6 +31,7 @@ namespace Open511DotNet
             var polygon = value as GmlPolygon;
             if (polygon != null)
             {
+                writer.WriteStartArray();
                 if (polygon.Exterior != null)
                 {
                     serializer.Serialize(writer, polygon.Exterior);
@@ -39,13 +40,24 @@ namespace Open511DotNet
                 {
                     serializer.Serialize(writer, polygon.Interior);
                 }
+                writer.WriteEndArray();
             }
 
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            var ret = new GmlPolygon();
+            var tempArray = serializer.Deserialize<List<GmlRing>>(reader);
+            if (tempArray.Count > 0)
+            {
+                ret.Exterior = tempArray[0];
+            }
+            if (tempArray.Count > 1)
+            {
+                ret.Interior = tempArray[1];
+            }
+            return ret;
         }
 
         public override bool CanConvert(Type objectType)

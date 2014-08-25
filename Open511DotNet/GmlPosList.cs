@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace Open511DotNet
 {
+    [JsonConverter(typeof(JsonSerializeChildren))] 
     public class GmlPosList : IXmlSerializable
     {
         [XmlIgnore]

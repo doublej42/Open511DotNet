@@ -52,6 +52,7 @@
     <Compile Include="GmlPos.cs" />
     <Compile Include="GmlPosList.cs" />
     <Compile Include="GmlRing.cs" />
+    <Compile Include="JsonSerializeChildren.cs" />
     <Compile Include="Jurisdiction.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="Open511.cs" />

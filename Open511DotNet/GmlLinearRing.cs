@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace Open511DotNet
 {
-    
+    [JsonConverter(typeof(JsonSerializeChildren))]
     public class GmlLinearRing
     {
         [XmlElement("posList", Namespace = "http://www.opengis.net/gml")]

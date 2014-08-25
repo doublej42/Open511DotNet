@@ -57,12 +57,27 @@ namespace Open511DotNet
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            var ret = new GmlPos();
+            var tmp = serializer.Deserialize<List<double>>(reader);
+            ret.Longitude = tmp[0];
+            ret.Latitude = tmp[1];
+            //while (reader.TokenType != JsonToken.Float)
+            //{
+            //    reader.Read();
+            //}
+            //var longStr = reader.ReadAsString();
+            //var latStr = reader.ReadAsString();
+
+            //while (reader.Read())
+            //{
+                
+            //}
+            return ret;
         }
 
         public override bool CanConvert(Type objectType)
         {
-            throw new NotImplementedException();
+            return (typeof (GmlPos) == objectType);
         }
     }
 }
