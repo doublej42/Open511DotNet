@@ -30,6 +30,11 @@ namespace Open511DotNet
         [XmlAttribute("href")]
         public string Url { get; set; }
 
+        public static implicit operator Link(string value)
+        {
+            return new Link(value);
+        }
+
     }
 
 

@@ -77,7 +77,6 @@ namespace Open511DotNet
 
         [XmlElement("timezone")]
         [JsonProperty("timezone")]
-        //public TimeZoneInfo TimeZone { get; set; }
         public string TimeZone { get; set; }
 
         [XmlElement("distance_unit")]

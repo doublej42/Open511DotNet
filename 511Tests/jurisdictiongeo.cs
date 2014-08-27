@@ -31,7 +31,7 @@ namespace _511Tests
         public GeographiesBase GGeographiesBase { get; set; }
 
         [TestMethod]
-        public void GeographiesBaseXmlText()
+        public void BaseXmlText()
         {
             var xmlText = GGeographiesBase.SerializeXml();
             var serializer = new XmlSerializer(typeof(GeographiesBase));
@@ -45,7 +45,7 @@ namespace _511Tests
 
 
         [TestMethod]
-        public void JurisdictionJsonTest()
+        public void JsonTest()
         {
             var jsonText = JsonConvert.SerializeObject(GGeographiesBase);
             var newObj = JsonConvert.DeserializeObject<GeographiesBase>(jsonText);

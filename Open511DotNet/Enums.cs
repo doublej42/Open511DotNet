@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -18,33 +19,35 @@ namespace Open511DotNet
         public static Link TrafficSegments = new Link("http://open511.org/services/traffic_segments/", "service_type");
     }
 
-    [Serializable]
-    [JsonConverter(typeof(DistanceUnitSerializer))]
-    public sealed class DistanceUnit : IXmlSerializable
+    [JsonConverter(typeof(StringEnumSerializer))]
+    public class StringEnum : IXmlSerializable
     {
+        protected string Value;
 
-
-        private string _unit;
-
-        public DistanceUnit()
+        public StringEnum()
         {
-           
+            
         }
 
-        public DistanceUnit(string unit)
+        public StringEnum(string value)
         {
-            _unit = unit;
+            Value = value;
         }
 
         public override string ToString()
         {
-            return _unit;
+            return Value;
         }
 
-        public static readonly DistanceUnit Kilometres = new DistanceUnit("KILOMETRES");
+        internal string Set(string value)
+        {
+            return Value = value;
+        }
 
-        public static readonly DistanceUnit Miles = new DistanceUnit("MILES");
-
+        public static implicit operator StringEnum(string value)
+        {
+            return new StringEnum(value);
+        }
 
         public System.Xml.Schema.XmlSchema GetSchema()
         {
@@ -53,37 +56,66 @@ namespace Open511DotNet
 
         public void ReadXml(System.Xml.XmlReader reader)
         {
-           _unit = reader.ReadElementContentAsString();
+            Value = reader.ReadElementContentAsString();
         }
 
         public void WriteXml(System.Xml.XmlWriter writer)
         {
-            writer.WriteString(_unit);
+            writer.WriteString(Value);
+        }
+
+        public Dictionary<string, string> ToDictionary()
+        {
+            var type = GetType();
+            var ret = new Dictionary<string, string>();
+            foreach (var propertyInfo in type.GetFields(BindingFlags.Public | BindingFlags.Static))
+            {
+                var value = propertyInfo.GetValue(this).ToString();
+                var readable = value.Replace('_', ' ').ToLower();
+                ret.Add(value, readable);
+                
+            }
+            return ret;
         }
     }
 
-    public class DistanceUnitSerializer : JsonConverter
+    
+    public class StringEnumSerializer : JsonConverter
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            var distanceUnit = value as DistanceUnit;
+            var vtemp = value as StringEnum;
 
-            if (distanceUnit != null)
+            if (vtemp != null)
             {
-                serializer.Serialize(writer, distanceUnit.ToString());
+                serializer.Serialize(writer, vtemp.ToString());
             }
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            var distanceUnit = new DistanceUnit(reader.Value.ToString());
-            return distanceUnit;
+            var ret = (StringEnum) Activator.CreateInstance(objectType);
+            ret.Set(reader.Value.ToString());
+            return ret;
 
         }
+
+        //protected bool TryCast<T>(ref T t, object o)
+        //{
+        //    if (
+        //        o == null
+        //        || !typeof(T).IsAssignableFrom(o.GetType())
+        //        )
+        //        return false;
+        //    t = (T)o;
+        //    return true;
+        //}
 
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(DistanceUnit);
+            return typeof(StringEnum).IsAssignableFrom(objectType);
         }
     }
+
+
 }

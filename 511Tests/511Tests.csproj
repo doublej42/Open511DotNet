@@ -59,6 +59,8 @@
     <Compile Include="jurisdictiongeo.cs" />
     <Compile Include="JurisdictionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EventTests.cs" />
+    <Compile Include="EnumTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Open511DotNet\Open511DotNet.csproj">
