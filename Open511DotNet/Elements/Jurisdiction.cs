@@ -112,19 +112,5 @@ namespace Open511DotNet
     
     }
 
-    [XmlRoot("open511")]
-    public class JurisdictionsBase : Open511Base
-    {
-        private List<Jurisdiction> _jurisdictions;
-
-        [XmlArray("jurisdictions")]
-        [XmlArrayItem("jurisdiction")]
-        [JsonProperty("jurisdictions")]
-        public List<Jurisdiction> Jurisdictions
-        {
-            get { return _jurisdictions ?? (_jurisdictions = new List<Jurisdiction>()); }
-            set { _jurisdictions = value; }
-        }
-    }
     
 }

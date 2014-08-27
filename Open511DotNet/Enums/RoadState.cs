@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Open511DotNet
 {
-    class RoadState: StringEnum
+    public class RoadState: StringEnum
     {
         public static readonly RoadState Closed = new RoadState("CLOSED");
         public static readonly RoadState SomeLanesClosed = new RoadState("SOME_LANES_CLOSED");

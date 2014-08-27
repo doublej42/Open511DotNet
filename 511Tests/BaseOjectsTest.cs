@@ -39,14 +39,14 @@ namespace _511Tests
             {
                 ServiceTypeUrl = ServiceType.Events,
                 Url = new Link("/events/"),
-                SupportedVersions = new List<SupportedVersion> {new SupportedVersion {SupportedversionID = "v0"}}
+                SupportedVersions = new List<SupportedVersion> {SupportedVersion.V0}
             };
             GRoot.Services.Add(service);
             service = new Service
             {
                 ServiceTypeUrl = ServiceType.Areas,
                 Url = new Link("/areas/"),
-                SupportedVersions = new List<SupportedVersion> { new SupportedVersion { SupportedversionID = "v0" } }
+                SupportedVersions = new List<SupportedVersion> { SupportedVersion.V0 }
             };
             GRoot.Services.Add(service);
 

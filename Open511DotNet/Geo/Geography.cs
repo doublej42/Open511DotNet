@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using Open511DotNet.Geo;
 
 namespace Open511DotNet
 {
@@ -19,6 +20,9 @@ namespace Open511DotNet
 
         [XmlElement("Polygon", Namespace = "http://www.opengis.net/gml")]
         public GmlPolygon Polygon { get; set; }
+
+        [XmlElement("LineString", Namespace = "http://www.opengis.net/gml")]
+        public GmlLineString LineString { get; set; }
     }
 
 
@@ -41,6 +45,12 @@ namespace Open511DotNet
                 else if (geography.Polygon != null)
                 {
                     writer.WriteValue("Polygon");
+                    writer.WritePropertyName("coordinates");
+                    serializer.Serialize(writer, geography.Polygon);
+                }
+                else if (geography.LineString != null)
+                {
+                    writer.WriteValue("LineString");
                     writer.WritePropertyName("coordinates");
                     serializer.Serialize(writer, geography.Polygon);
                 }

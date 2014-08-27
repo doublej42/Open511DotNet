@@ -38,7 +38,7 @@ namespace Open511DotNet
 
         [XmlArray("supported_versions")]
         [XmlArrayItem("supported_version")]
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "supportedVersions")]
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "supported_versions")]
         public List<SupportedVersion> SupportedVersions { get; set; }
     }
 }
