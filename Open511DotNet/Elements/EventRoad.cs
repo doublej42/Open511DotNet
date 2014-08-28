@@ -16,7 +16,7 @@ namespace Open511DotNet
         public string Name { get; set; }
 
         [XmlIgnore]
-        [JsonProperty("url")]
+        [JsonProperty("url",NullValueHandling = NullValueHandling.Ignore)]
         public Link Url
         {
             get { return GetLink("self"); }

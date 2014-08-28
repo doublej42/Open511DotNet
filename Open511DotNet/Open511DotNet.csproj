@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Bases\JurisdictionsBase.cs" />
     <Compile Include="Bases\RoadRestriction.cs" />
+    <Compile Include="Elements\Attachment.cs" />
     <Compile Include="Elements\RecurringSchedule.cs" />
     <Compile Include="Elements\ScheduleException.cs" />
     <Compile Include="Elements\ScheduleInterval.cs" />

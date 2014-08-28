@@ -61,17 +61,6 @@ namespace Open511DotNet
             var tmp = serializer.Deserialize<List<double>>(reader);
             ret.Longitude = tmp[0];
             ret.Latitude = tmp[1];
-            //while (reader.TokenType != JsonToken.Float)
-            //{
-            //    reader.Read();
-            //}
-            //var longStr = reader.ReadAsString();
-            //var latStr = reader.ReadAsString();
-
-            //while (reader.Read())
-            //{
-                
-            //}
             return ret;
         }
 

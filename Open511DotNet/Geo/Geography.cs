@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
-using Open511DotNet.Geo;
+
 
 namespace Open511DotNet
 {
-     [JsonConverter(typeof(GeographyConverter))]
+    [JsonConverter(typeof(GeographyConverter))]
     public class Geography
     {
         [XmlElement("Point", Namespace = "http://www.opengis.net/gml")]
@@ -52,7 +52,7 @@ namespace Open511DotNet
                 {
                     writer.WriteValue("LineString");
                     writer.WritePropertyName("coordinates");
-                    serializer.Serialize(writer, geography.Polygon);
+                    serializer.Serialize(writer, geography.LineString);
                 }
                 writer.WriteEndObject();
             }
@@ -77,6 +77,11 @@ namespace Open511DotNet
                 {
                     ret.Polygon = serializer.Deserialize<GmlPolygon>(newReader);
                 }
+                if (type == "LineString")
+                {
+                    ret.LineString = serializer.Deserialize<GmlLineString>(newReader);
+                }
+
 
             }
 

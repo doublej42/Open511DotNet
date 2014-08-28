@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using Open511DotNet.Elements;
 
 namespace Open511DotNet
 {
@@ -22,7 +23,7 @@ namespace Open511DotNet
         }
 
         [XmlIgnore]
-        [JsonProperty("jurisdiction")]
+        [JsonProperty("jurisdiction_url")]
         public Link Jurisdiction
         {
             get { return GetLink("jurisdiction"); }
@@ -100,7 +101,9 @@ namespace Open511DotNet
         [JsonProperty("schedule")]
         public EventSchedule Schedule { get; set; }
 
-
-
+        [XmlArray("attachments")]
+        [XmlArrayItem("link")]
+        [JsonProperty("attachments")]
+        public List<Attachment> Attachments { get; set; }
     }
 }

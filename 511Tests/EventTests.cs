@@ -9,7 +9,6 @@ using Newtonsoft.Json;
 using Open511DotNet;
 using Open511DotNet.Bases;
 using Open511DotNet.Elements;
-using Open511DotNet.Geo;
 
 namespace _511Tests
 {
@@ -25,10 +24,12 @@ namespace _511Tests
             //    Polygon =
             //        new GmlPolygon
             //        {
-            //            Exterior = new GmlRing { LinearRing = new GmlLinearRing { PosList = new GmlPosList() } }
+            //            Exterior = new GmlRing { LinearRing = new GmlLinearRing() }
             //        }
             //};
+            // geography.Polygon.Exterior.LinearRing.PosList = new GmlPosList();
             //geography.Polygon.Exterior.LinearRing.PosList.FromString("45.743558682 -73.515580305 45.744177048 -73.516801183 45.74519912 -73.516754263 45.745477517 -73.516741494 45.746719115 -73.519189578 45.748003618 -73.519343022 45.748595939 -73.520130776 45.749015964 -73.520120827 45.750027519 -73.521934616 45.754234632 -73.529479504 45.777799543 -73.527583233 45.743558682 -73.515580305");
+
             var geography = new Geography { LineString = new GmlLineString { PosList = new GmlPosList() } };
             geography.LineString.PosList.FromString("47.33 -71.17 47.36 -71.15 47.35 -71.1 47.4 -71.2");
             var te = new Event
@@ -55,11 +56,11 @@ namespace _511Tests
                         Name = "Dunsmuir Street",
                         From = "400 block",
                         To = "500 block",
-                        State = RoadState.AllLanesOpen,
-                        Direction = RoadDirection.Both,
-                        LanesClosed = 0,
+                        State = RoadState.SomeLanesClosed,
+                        Direction = RoadDirection.East,
+                        LanesClosed = 3,
                         LanesOpen = 2,
-                        ImpactedSystems = new List<ImpactedSystem> {ImpactedSystem.Bikelane},
+                        ImpactedSystems = new List<ImpactedSystem> {ImpactedSystem.Bikelane,ImpactedSystem.Road},
                         Restrictions = new List<RoadRestriction>
                         {
                             new RoadRestriction {RestrictionType = RestrictionType.Speed, Value = 50}
@@ -102,9 +103,21 @@ namespace _511Tests
                 {
                     StartDate = new DateTime(2014, 06, 26, 17, 0, 0),
                     EndDate = new DateTime(2014, 06, 27, 6, 0, 0)
+                },
+                new ScheduleInterval
+                {
+                    StartDate = new DateTime(2014, 07, 26, 17, 0, 0)
                 }
             };
-
+            var attach = new Attachment
+            {
+                Url = "http://my.city.gov/trafic/advisory/39473/com.pdf",
+                Length = 20345,
+                Type = "application/pdf",
+                Title = "Detour map"
+            };
+            te.Attachments = new List<Attachment>();
+            te.Attachments.Add(attach);
 
             TestObject.Events.Add(te);
         }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using Open511DotNet.Elements;
 
 namespace Open511DotNet
 {
@@ -33,6 +34,17 @@ namespace Open511DotNet
         public static implicit operator Link(string value)
         {
             return new Link(value);
+        }
+
+        public virtual void WriteJson(JsonWriter writer, JsonSerializer serializer)
+        {
+            //serializer.Serialize(writer, Url);
+            writer.WriteValue(Url);
+        }
+
+        public virtual void ReadJson(JsonReader reader, JsonSerializer serializer)
+        {
+            Url = reader.Value.ToString();
         }
 
     }
@@ -75,21 +87,19 @@ namespace Open511DotNet
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             var link = value as Link;
-
-            //writer.WriteStartObject();
-            //writer.WritePropertyName(serializer);
             if (link != null)
             {
-                serializer.Serialize(writer, link.Url);
+                link.WriteJson(writer, serializer);
+                
             }
-            //writer.WriteEndObject();
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            var link = new Link();
-            link.Url = reader.Value.ToString();
+            var link =  (Link) Activator.CreateInstance(objectType);
+            link.ReadJson(reader, serializer);
             return link;
+
 
         }
 
